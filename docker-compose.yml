@@ -1,0 +1,29 @@
+version: "3"
+services:
+  chagiya-rest-service:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chagiya-rest-db
+      - chagiya-rest-cache
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${PSQL_USER}:${PSQL_PASSWORD}@${PSQL_HOST}:${PSQL_PORT}/${PSQL_NAME}
+      - REDIS_URL=redis://cache:6379
+
+  chagiya-rest-db:
+    image: postgres
+    env_file:
+      - .env
+    hostname: ${PSQL_HOST}
+    environment:
+      POSTGRES_DB: ${PSQL_NAME}
+      POSTGRES_USER: ${PSQL_USER}
+      POSTGRES_PASSWORD: ${PSQL_PASSWORD}
+    ports:
+      - "5433:${PSQL_PORT}"
+
+  chagiya-rest-cache:
+    image: redis:latest
