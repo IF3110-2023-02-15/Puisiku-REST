@@ -1,18 +1,5 @@
-version: "3"
+version: '3'
 services:
-  chagiya-rest-service:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - chagiya-rest-db
-      - chagiya-rest-cache
-    env_file:
-      - .env
-    environment:
-      - DATABASE_URL=postgresql://${PSQL_USER}:${PSQL_PASSWORD}@${PSQL_HOST}:${PSQL_PORT}/${PSQL_NAME}
-      - REDIS_URL=redis://cache:6379
-
   chagiya-rest-db:
     image: postgres
     env_file:
@@ -23,7 +10,26 @@ services:
       POSTGRES_USER: ${PSQL_USER}
       POSTGRES_PASSWORD: ${PSQL_PASSWORD}
     ports:
-      - "5433:${PSQL_PORT}"
+      - '5433:${PSQL_PORT}'
+    volumes:
+      - chagiya_rest_volume:/var/lib/postgresql/data
 
   chagiya-rest-cache:
     image: redis:latest
+
+  chagiya-rest-service:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - chagiya-rest-db
+      - chagiya-rest-cache
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${PSQL_USER}:${PSQL_PASSWORD}@${PSQL_HOST}:${PSQL_PORT}/${PSQL_NAME}
+      - REDIS_URL=redis://cache:6379
+    command: sh -c "npx prisma migrate deploy && npm run start"
+
+volumes:
+  chagiya_rest_volume:
