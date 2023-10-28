@@ -24,10 +24,12 @@ class UserRepository {
     return await PSQL.prisma.user.findMany()
   }
 
-  async updateUser(id: number, data: IUser) {
+  async updateUserName(id: number, name: string) {
     return await PSQL.prisma.user.update({
       where: { id },
-      data,
+      data: {
+        name: name,
+      },
     })
   }
 
