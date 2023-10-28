@@ -1,5 +1,6 @@
 import express from 'express'
 import authRoutes from './routes/auth.route'
+import userRoutes from './routes/user.route'
 
 class App {
   public app: express.Application
@@ -21,7 +22,9 @@ class App {
     this.app.get('/', (req: express.Request, res: express.Response) => {
       res.send('Hello, World!')
     })
+
     this.app.use('/auth', authRoutes)
+    this.app.use('/user', userRoutes)
   }
 
   public listen() {
