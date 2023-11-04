@@ -27,7 +27,7 @@ class UserController {
         return res.status(404).json({ message: 'User Not Found' })
       }
 
-      const subscription = await this.subscriptionService.checkSubscription(
+      const subscription = await this.subscriptionService.getSubscriber(
         user.email
       )
 

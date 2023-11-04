@@ -4,10 +4,8 @@
 class SubscriptionService {
   constructor() {}
 
-  async subscribe(email: string) {}
-
-  async checkSubscription(email: string) {
-    return { subscribed: true }
+  async getSubscriber(email: string) {
+    return { subscriber: 0 }
   }
 }
 
