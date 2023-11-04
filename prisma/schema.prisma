@@ -15,11 +15,6 @@ model User {
   name           String
   email          String   @unique
   hashedPassword String
-  role           Role     @default(USER)
   createdAt      DateTime @default(now())
 }
 
-enum Role {
-  ADMIN
-  USER
-}
