@@ -27,3 +27,10 @@ export class IncorrectPasswordError extends Error {
     this.name = 'IncorrectPasswordError'
   }
 }
+
+export class ConfirmationPasswordNotMatched extends Error {
+  constructor() {
+    super('Password and confirmation password not matched')
+    this.name = 'ConfirmationPasswordNotMatched'
+  }
+}

@@ -7,18 +7,24 @@ import {
   EnvVarsError,
   UserNotFoundError,
   IncorrectPasswordError,
+  ConfirmationPasswordNotMatched,
 } from '../errors/errors'
 
 interface IRegisterData {
   name: string
   email: string
   password: string
+  confirmPassword: string
 }
 
 class AuthService {
   constructor(private userRepository: UserRepository) {}
 
   async register(data: IRegisterData) {
+    if (data.password !== data.confirmPassword) {
+      throw new ConfirmationPasswordNotMatched()
+    }
+
     const existingUser = await this.userRepository.getUserByEmail(data.email)
     if (existingUser) {
       throw new EmailExistsError()
@@ -47,7 +53,7 @@ class AuthService {
       throw new IncorrectPasswordError()
     }
 
-    const token = jwt.sign({ id: user.id, role: user.role }, secret_key, {
+    const token = jwt.sign({ id: user.id }, secret_key, {
       expiresIn: expire_time,
     })
     return { success: true, token }
