@@ -1,5 +1,7 @@
 import express from 'express'
+import cors from 'cors'
 import authRoutes from './routes/auth.route'
+import userRoutes from './routes/user.route'
 
 class App {
   public app: express.Application
@@ -15,13 +17,16 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(express.json())
+    this.app.use(cors({ origin: process.env.CLIENT_SPA_BASE_URL }))
   }
 
   private initializeRoutes() {
     this.app.get('/', (req: express.Request, res: express.Response) => {
       res.send('Hello, World!')
     })
+
     this.app.use('/auth', authRoutes)
+    this.app.use('/user', userRoutes)
   }
 
   public listen() {

@@ -1,14 +1,38 @@
-import UserRepository from '../repositories/user.repository'
-import { IUser } from '../domains/user.domain'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
+import UserRepository from '../repositories/user.repository'
+import {
+  EmailExistsError,
+  EnvVarsError,
+  UserNotFoundError,
+  IncorrectPasswordError,
+  ConfirmationPasswordNotMatched,
+} from '../errors/errors'
+
+interface IRegisterData {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 class AuthService {
   constructor(private userRepository: UserRepository) {}
 
-  async register(data: IUser) {
-    const hashedPassword = await bcrypt.hash(data.hashedPassword, 10)
-    return await this.userRepository.createUser({ ...data, hashedPassword })
+  async register(data: IRegisterData) {
+    if (data.password !== data.confirmPassword) {
+      throw new ConfirmationPasswordNotMatched()
+    }
+
+    const existingUser = await this.userRepository.getUserByEmail(data.email)
+    if (existingUser) {
+      throw new EmailExistsError()
+    }
+
+    const { name, email, password } = data
+    const hashedPassword = await bcrypt.hash(password, 10)
+    return await this.userRepository.createUser({ name, email, hashedPassword })
   }
 
   async login(email: string, password: string) {
@@ -16,19 +40,23 @@ class AuthService {
     const expire_time = process.env.JWT_EXPIRE_TIME
 
     if (!secret_key || !expire_time) {
-      throw new Error(
-        'JWT_SECRET_KEY or JWT_EXPIRE_TIME is not set in the environment variables'
-      )
+      throw new EnvVarsError()
     }
 
     const user = await this.userRepository.getUserByEmail(email)
-    if (user && (await bcrypt.compare(password, user.hashedPassword))) {
-      const token = jwt.sign({ id: user.id, role: user.role }, secret_key, {
-        expiresIn: expire_time,
-      })
-      return { success: true, token }
+    if (!user) {
+      throw new UserNotFoundError()
     }
-    return { success: false }
+
+    const passwordMatches = await bcrypt.compare(password, user.hashedPassword)
+    if (!passwordMatches) {
+      throw new IncorrectPasswordError()
+    }
+
+    const token = jwt.sign({ id: user.id }, secret_key, {
+      expiresIn: expire_time,
+    })
+    return { success: true, token }
   }
 }
 
