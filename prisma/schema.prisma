@@ -12,9 +12,12 @@ datasource db {
 
 model User {
   id             Int      @id @default(autoincrement())
-  name           String
-  email          String   @unique
-  hashedPassword String
+  name           String   @db.VarChar(255)
+  email          String   @unique @db.VarChar(255)
+  hashedPassword String   @db.VarChar(255)
   createdAt      DateTime @default(now())
+  imagePath      String   @default("/img/default_user.png") @db.VarChar(255)
+  description    String?  @db.Text
 }
+
 
