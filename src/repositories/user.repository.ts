@@ -11,6 +11,12 @@ class UserRepository {
   async getUserById(id: number) {
     return await PSQL.prisma.user.findUnique({
       where: { id },
+      select: {
+        name: true,
+        email: true,
+        imagePath: true,
+        description: true,
+      },
     })
   }
 
@@ -24,11 +30,22 @@ class UserRepository {
     return await PSQL.prisma.user.findMany()
   }
 
-  async updateUserName(id: number, name: string) {
+  async updateUserProfile(
+    id: number,
+    data: { name?: string; description?: string; imagePath?: string }
+  ) {
     return await PSQL.prisma.user.update({
       where: { id },
       data: {
-        name: name,
+        name: data.name,
+        description: data.description,
+        imagePath: data.imagePath,
+      },
+      select: {
+        name: true,
+        email: true,
+        imagePath: true,
+        description: true,
       },
     })
   }
