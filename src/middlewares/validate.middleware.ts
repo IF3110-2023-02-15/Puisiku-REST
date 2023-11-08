@@ -8,12 +8,11 @@ export const validate = (schema: ZodSchema<any>) => {
       next()
     } catch (error) {
       if (error instanceof ZodError) {
-        res
-          .status(400)
-          .send({
-            message:
-              'Request body validation failed! Please send appropriate request body!',
-          })
+        res.status(400).send({
+          message:
+            error.message ||
+            'Request body validation failed! Please send appropriate request body!',
+        })
       } else {
         res.status(500).send({
           message:
