@@ -40,7 +40,11 @@ export const authenticate = (
 
   jwt.verify(token, secret_key, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: 'Token invalid' })
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token expired' })
+      } else {
+        return res.status(401).json({ message: 'Token invalid' })
+      }
     }
 
     if (typeof decoded === 'object') {
@@ -49,16 +53,4 @@ export const authenticate = (
 
     next()
   })
-}
-
-export const authorize = (role: string) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user || req.user.role !== role) {
-      return res.status(403).json({
-        message: 'Forbidden: you do not have the required permissions',
-      })
-    }
-
-    next()
-  }
 }

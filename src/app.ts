@@ -1,7 +1,10 @@
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
+
 import authRoutes from './routes/auth.route'
 import userRoutes from './routes/user.route'
+import fileRoutes from './routes/file.route'
 
 class App {
   public app: express.Application
@@ -18,6 +21,7 @@ class App {
   private initializeMiddlewares() {
     this.app.use(express.json())
     this.app.use(cors({ origin: process.env.CLIENT_SPA_BASE_URL }))
+    this.app.use(express.static(path.join(__dirname, '../public')))
   }
 
   private initializeRoutes() {
@@ -27,6 +31,7 @@ class App {
 
     this.app.use('/auth', authRoutes)
     this.app.use('/user', userRoutes)
+    this.app.use('/file', fileRoutes)
   }
 
   public listen() {

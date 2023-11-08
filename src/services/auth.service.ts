@@ -53,9 +53,13 @@ class AuthService {
       throw new IncorrectPasswordError()
     }
 
-    const token = jwt.sign({ id: user.id }, secret_key, {
-      expiresIn: expire_time,
-    })
+    const token = jwt.sign(
+      { id: user.id, imagePath: user.imagePath },
+      secret_key,
+      {
+        expiresIn: expire_time,
+      }
+    )
     return { success: true, token }
   }
 }
