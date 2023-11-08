@@ -3,8 +3,3 @@ export interface IUser {
   email: string
   hashedPassword: string
 }
-
-export enum Role {
-  Admin = 'ADMIN',
-  User = 'USER',
-}
