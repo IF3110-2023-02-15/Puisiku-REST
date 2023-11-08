@@ -31,7 +31,7 @@ class UserController {
         user.email
       )
 
-      res.json({ user, subscription })
+      res.json({ ...user, ...subscription })
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving profile' })
     }
@@ -39,10 +39,14 @@ class UserController {
 
   updateProfile = async (req: Request, res: Response) => {
     const id = Number(req.user && req.user.id)
-    const { name } = req.body
+    const { name, description, imagePath } = req.body
 
     try {
-      const updatedUser = await this.userService.updateProfile(id, name)
+      const updatedUser = await this.userService.updateProfile(id, {
+        name,
+        description,
+        imagePath,
+      })
       res.json(updatedUser)
     } catch (error) {
       res.status(500).json({ message: 'Error updating profile' })
