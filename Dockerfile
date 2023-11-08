@@ -1,5 +1,7 @@
 FROM node:16.13
+
 WORKDIR /app
+
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY prisma ./prisma/
@@ -11,6 +13,7 @@ RUN npm install
 RUN npx prisma generate
 
 COPY src ./src
+COPY public/ ./public
 
 EXPOSE 3000
 
