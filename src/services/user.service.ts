@@ -7,8 +7,11 @@ class UserService {
     return await this.userRepository.getUserById(id)
   }
 
-  async updateProfile(id: number, name: string) {
-    return await this.userRepository.updateUserName(id, name)
+  async updateProfile(
+    id: number,
+    data: { name?: string; description?: string; imagePath?: string }
+  ) {
+    return this.userRepository.updateUserProfile(id, data)
   }
 }
 
