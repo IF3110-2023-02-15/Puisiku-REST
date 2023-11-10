@@ -9,7 +9,7 @@ const router = Router()
 const poemController = new PoemController()
 
 router.get('/', poemController.getAllPoems)
-router.get('/:id', poemController.)
+router.get('/:id', poemController.getPoemById)
 router.post('/', validate(addPoemDto), poemController.createPoem)
 
 export default router

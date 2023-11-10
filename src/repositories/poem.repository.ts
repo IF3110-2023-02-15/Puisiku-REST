@@ -25,6 +25,13 @@ class PoemRepository {
     return await PSQL.prisma.poem.findMany()
   }
 
+  async updatePoem(data: IPoem, id: number){
+    return await PSQL.prisma.poem.update({
+      data,
+      where: { id },
+    })
+  }
+
   async deletePoem(id: number) {
     return await PSQL.prisma.poem.delete({
       where: { id },
