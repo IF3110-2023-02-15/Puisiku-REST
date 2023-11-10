@@ -22,7 +22,6 @@ class PoemController {
     createPoem = async (req: Request, res: Response) => {
         try {
             const poems = await this.poemService.createPoem(req.body);
-            console.log(poems, "ini di service")
             res.json(poems);
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
@@ -31,7 +30,8 @@ class PoemController {
 
     getPoemById = async (req: Request, res: Response) => {
         try {
-            const poem = await this.poemService.getPoemById(req.body);
+            const id = Number(req.params.id);
+            const poem = await this.poemService.getPoemById(id);
             res.json(poem);
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
