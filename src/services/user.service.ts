@@ -11,7 +11,7 @@ class UserService {
     id: number,
     data: { name?: string; description?: string; imagePath?: string }
   ) {
-    return this.userRepository.updateUserProfile(id, data)
+    return await this.userRepository.updateUserProfile(id, data)
   }
 }
 
