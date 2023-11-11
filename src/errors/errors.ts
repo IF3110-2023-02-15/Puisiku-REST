@@ -48,3 +48,10 @@ export class AlbumNotFoundError extends Error {
     this.name = 'AlbumNotFound'
   }
 }
+
+export class GetSubscriberError extends Error {
+  constructor() {
+    super('Failed to get subscriber')
+    this.name = 'GetSubscriberError'
+  }
+}
