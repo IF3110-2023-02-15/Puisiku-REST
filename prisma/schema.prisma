@@ -20,6 +20,7 @@ model User {
   description    String?  @db.Text
 
   poems          Poem[]
+  albums         Album[]
 }
 
 model Poem {
@@ -34,7 +35,7 @@ model Poem {
   year           Int      @db.Integer
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  album          Album?   @relation(fields: [albumId], references: [id])
+  album          Album?   @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId        Int?
 }
 
@@ -44,4 +45,6 @@ model Album {
   createdAt DateTime @default(now())
   poems     Poem[]
   imagePath String
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId Int
 }
