@@ -27,11 +27,9 @@ class UserController {
         return res.status(404).json({ message: 'User Not Found' })
       }
 
-      const subscription = await this.subscriptionService.getSubscriber(
-        user.email
-      )
+      const subscriber = await this.subscriptionService.getSubscriber(id)
 
-      res.json({ ...user, ...subscription })
+      res.json({ ...user, ...subscriber })
     } catch (error) {
       res.status(500).json({ message: 'Error retrieving profile' })
     }
