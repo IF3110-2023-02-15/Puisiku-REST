@@ -6,7 +6,7 @@ const SOAP_API_KEY = process.env.SOAP_API_KEY
 
 interface SubscriberResponse {
   message: string
-  status: string
+  status: number
 }
 
 class SubscriptionService {
@@ -43,7 +43,7 @@ class SubscriptionService {
     )
 
     const { message, status } = result.return
-    if (Number(status) === 200) {
+    if (status === 200) {
       return { subscriber: Number(message) }
     } else {
       throw new GetSubscriberError()
