@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.route'
 import userRoutes from './routes/user.route'
 import fileRoutes from './routes/file.route'
 import poemRoutes from './routes/poem.route'
+import albumRoutes from './routes/album.route'
 
 class App {
   public app: express.Application
@@ -34,6 +35,7 @@ class App {
     this.app.use('/user', userRoutes)
     this.app.use('/file', fileRoutes)
     this.app.use('/poem', poemRoutes)
+    this.app.use('/album', albumRoutes)
   }
 
   public listen() {

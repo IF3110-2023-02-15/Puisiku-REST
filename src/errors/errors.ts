@@ -34,3 +34,17 @@ export class ConfirmationPasswordNotMatched extends Error {
     this.name = 'ConfirmationPasswordNotMatched'
   }
 }
+
+export class CreatorNotFoundError extends Error {
+  constructor() {
+    super('Creator not found')
+    this.name = 'CreatorNotFound'
+  }
+}
+
+export class AlbumNotFoundError extends Error {
+  constructor() {
+    super('Album not Found')
+    this.name = 'AlbumNotFound'
+  }
+}
