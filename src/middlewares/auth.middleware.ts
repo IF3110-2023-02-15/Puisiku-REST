@@ -1,6 +1,8 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 
+const PHP_API_KEY = process.env.PHP_API_KEY
+
 declare global {
   namespace Express {
     interface Request {
@@ -14,6 +16,16 @@ export const authenticate = (
   res: Response,
   next: NextFunction
 ) => {
+  const accessToken = req.headers['x-access-token']
+
+  if (accessToken) {
+    if (accessToken === process.env.ACCESS_TOKEN) {
+      return next()
+    } else {
+      return res.status(401).json({ message: 'Access token is not valid' })
+    }
+  }
+
   const authHeader = req.headers.authorization
 
   if (!authHeader) {
