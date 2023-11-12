@@ -14,21 +14,18 @@ class SubscriptionService {
 
   async getSubscriber(creatorId: number): Promise<{ subscriber: number }> {
     const url = SOAP_BASE_URL + '/subscription?wsdl'
-    const headers = {
-      'x-api-key': SOAP_API_KEY,
-    }
     const args = { creatorId: creatorId }
 
     const client: any = await new Promise((resolve, reject) => {
-      soap.createClient(
-        url,
-        { wsdl_headers: headers },
-        (err: any, client: any) => {
-          if (err) reject(err)
-          resolve(client)
-        }
-      )
+      soap.createClient(url, (err: any, client: any) => {
+        if (err) reject(err)
+        resolve(client)
+      })
     })
+
+    const headers = {
+      'x-api-key': SOAP_API_KEY,
+    }
 
     const result: { return: SubscriberResponse } = await new Promise(
       (resolve, reject) => {
@@ -37,7 +34,9 @@ class SubscriptionService {
           (err: any, result: { return: SubscriberResponse }) => {
             if (err) reject(err)
             resolve(result)
-          }
+          },
+          null,
+          headers
         )
       }
     )
