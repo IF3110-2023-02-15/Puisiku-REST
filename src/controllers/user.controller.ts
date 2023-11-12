@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import UserService from '../services/user.service'
 import SubscriptionService from '../services/subscription.service'
 import UserRepository from '../repositories/user.repository'
+import { GetSubscriberError } from '../errors/errors'
 
 class UserController {
   private userService: UserService
@@ -29,9 +30,14 @@ class UserController {
 
       const subscriber = await this.subscriptionService.getSubscriber(id)
 
-      res.json({ ...user, ...subscriber })
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving profile' })
+      return res.json({ ...user, ...subscriber })
+    } catch (error: any) {
+      if (error instanceof GetSubscriberError) {
+        return res.status(400).json({ error: error.message })
+      }
+      return res
+        .status(500)
+        .json({ message: 'Error retrieving profile' + error.toString() })
     }
   }
 
