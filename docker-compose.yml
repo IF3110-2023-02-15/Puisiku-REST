@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${PSQL_USER}
       POSTGRES_PASSWORD: ${PSQL_PASSWORD}
     ports:
-      - '5433:${PSQL_PORT}'
+      - '5434:${PSQL_PORT}'
     volumes:
       - puisiku_rest_volume:/var/lib/postgresql/data
 
