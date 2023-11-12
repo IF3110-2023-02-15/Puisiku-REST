@@ -3,10 +3,10 @@
 set the env
 
 ```bash
-DATABASE_URL=postgresql://chagiya-rest:chagiya-rest@localhost:5433/chagiya-rest-db
+DATABASE_URL=postgresql://chagiya-rest:chagiya-rest@localhost:5434/chagiya-rest-db
 
 PSQL_HOST=chagiya-rest-db
-PSQL_PORT=5432
+PSQL_PORT=5434
 PSQL_NAME=chagiya-rest-db
 PSQL_USER=chagiya-rest
 PSQL_PASSWORD=chagiya-rest
@@ -17,6 +17,11 @@ JWT_SECRET_KEY=asdfghjkl
 JWT_EXPIRE_TIME=1h
 
 CLIENT_SPA_BASE_URL=http://localhost:5173
+SOAP_BASE_URL=http://localhost:8888
+
+ACCESS_TOKEN=chowganteng
+
+SOAP_API_KEY=fromrest
 ```
 
 ## How to Run
