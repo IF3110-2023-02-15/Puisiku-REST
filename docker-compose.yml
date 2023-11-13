@@ -13,9 +13,13 @@ services:
       - '5434:${PSQL_PORT}'
     volumes:
       - puisiku_rest_volume:/var/lib/postgresql/data
+    networks:
+      - puisiku
 
   puisiku-rest-cache:
     image: redis:latest
+    networks:
+      - puisiku
 
   puisiku-rest-service:
     build: .
@@ -32,7 +36,13 @@ services:
     command: sh -c "npx prisma migrate deploy && npm run start"
     volumes:
       - puisiku_public_rest_volume:/app/public
+    networks:
+      - puisiku
 
 volumes:
   puisiku_rest_volume:
   puisiku_public_rest_volume:
+
+networks:
+  puisiku:
+    external: true
