@@ -16,10 +16,10 @@ export const authenticate = (
   res: Response,
   next: NextFunction
 ) => {
-  const accessToken = req.headers['x-access-token']
+  const apiKey = req.headers['x-api-key']
 
-  if (accessToken) {
-    if (accessToken === process.env.ACCESS_TOKEN) {
+  if (apiKey) {
+    if (apiKey === process.env.API_KEY) {
       return next()
     } else {
       return res.status(401).json({ message: 'Access token is not valid' })
