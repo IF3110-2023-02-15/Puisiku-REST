@@ -4,17 +4,20 @@ import AlbumService from '../services/album.service'
 import AlbumRepository from '../repositories/album.repository'
 import UserRepository from '../repositories/user.repository'
 import { AlbumNotFoundError, CreatorNotFoundError } from '../errors/errors'
+import UserService from '../services/user.service'
 
 const DEFAULT_ALBUM_IMAGE_PATH = '/img/default_album.png'
 
 class AlbumController {
   private albumService: AlbumService
+  private userService: UserService
 
   constructor() {
     this.albumService = new AlbumService(
       new AlbumRepository(),
       new UserRepository()
     )
+    this.userService = new UserService(new UserRepository())
   }
 
   addAlbum = async (req: Request, res: Response) => {
@@ -76,7 +79,9 @@ class AlbumController {
 
     try {
       const albums = await this.albumService.getAlbums({ creatorId })
-      return res.json(albums)
+      const creator = await this.userService.getProfileById(creatorId)
+
+      return res.json({ creator, albums })
     } catch (error: any) {
       if (error instanceof CreatorNotFoundError) {
         return res.status(404).json({ error: error.message })
