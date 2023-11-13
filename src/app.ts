@@ -22,7 +22,14 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(express.json())
-    this.app.use(cors({ origin: process.env.CLIENT_SPA_BASE_URL }))
+    this.app.use(
+      cors({
+        origin: [
+          process.env.CLIENT_SPA_BASE_URL || 'http://localhost:5173',
+          process.env.PHP_BASE_URL || 'http://localhost:5001',
+        ],
+      })
+    )
     this.app.use(express.static(path.join(__dirname, '../public')))
   }
 
