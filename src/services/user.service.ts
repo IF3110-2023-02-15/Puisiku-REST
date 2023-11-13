@@ -13,6 +13,10 @@ class UserService {
   ) {
     return await this.userRepository.updateUserProfile(id, data)
   }
+
+  async getCreators() {
+    return await this.userRepository.getAllUsers()
+  }
 }
 
 export default UserService

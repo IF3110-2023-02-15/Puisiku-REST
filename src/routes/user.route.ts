@@ -9,6 +9,7 @@ const router = Router()
 
 const userController = new UserController()
 
+router.get('/creators', authenticate, userController.getCreators)
 router.get('/', authenticate, userController.getProfile)
 router.patch(
   '/',
