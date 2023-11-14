@@ -38,6 +38,28 @@ class PoemController {
     }
   }
 
+  updatePoem = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id)
+      const poems = await this.poemService.updatePoem(id, req.body)
+      res.json(poems)
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  }
+
+  deletePoem = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id)
+      console.log("id yg mo di del", id)
+      const poems = await this.poemService.deletePoem(id)
+      console.log(poems);
+      res.json(poems)
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  }
+
   getAlbumPoems = async (req: Request, res: Response) => {
     const albumId = Number(req.params.albumId)
     try {
