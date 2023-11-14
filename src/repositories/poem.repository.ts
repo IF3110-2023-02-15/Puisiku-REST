@@ -42,6 +42,12 @@ class PoemRepository {
       where: { albumId },
     })
   }
+
+  async getAlbumIdByPoemId(id: number) {
+    return await PSQL.prisma.poem.findUnique({
+      where : { id }
+    })
+  }
 }
 
 export default PoemRepository
