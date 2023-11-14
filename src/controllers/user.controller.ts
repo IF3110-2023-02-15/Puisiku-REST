@@ -56,6 +56,16 @@ class UserController {
       res.status(500).json({ message: 'Error updating profile' })
     }
   }
+
+  getCreators = async (req: Request, res: Response) => {
+    try {
+      const creators = await this.userService.getCreators()
+
+      res.json(creators)
+    } catch (error) {
+      res.status(500).json({ message: 'Error getting creators' })
+    }
+  }
 }
 
 export default UserController
