@@ -8,4 +8,5 @@ export interface IPoem {
     year: number
     createdAt: Date
     updatedAt: Date
+    albumId: number
 }

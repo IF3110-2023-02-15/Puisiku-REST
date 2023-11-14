@@ -7,6 +7,7 @@ export const poems = [
       imagePath: '/path/to/image1',
       audioPath: '/path/to/audio1',
       year: 2023,
+      albumId: 1,
     },
     {
       title: 'Love Sonnet',
@@ -16,6 +17,7 @@ export const poems = [
       imagePath: '/path/to/image2',
       audioPath: '/path/to/audio2',
       year: 2022,
+      albumId: 2,
     },
     {
       title: 'The Lost City',
@@ -25,6 +27,7 @@ export const poems = [
       imagePath: '/path/to/image3',
       audioPath: '/path/to/audio3',
       year: 2024,
+      albumId: 3,
     },
     {
       title: 'Winter Breeze',
@@ -34,6 +37,7 @@ export const poems = [
       imagePath: '/path/to/image4',
       audioPath: '/path/to/audio4',
       year: 2021,
+      albumId: 4,
     },
     {
       title: 'The Last Stand',
@@ -43,6 +47,7 @@ export const poems = [
       imagePath: '/path/to/image5',
       audioPath: '/path/to/audio5',
       year: 2025,
+      albumId: 5,
     },
     {
       title: 'Sunset Serenade',
@@ -52,6 +57,7 @@ export const poems = [
       imagePath: '/path/to/image6',
       audioPath: '/path/to/audio6',
       year: 2022,
+      albumId: 6,
     },
     {
       title: 'Whispers in the Wind',
@@ -61,6 +67,7 @@ export const poems = [
       imagePath: '/path/to/image7',
       audioPath: '/path/to/audio7',
       year: 2023,
+      albumId: 7,
     },
     {
       title: 'The Enchanted Forest',
@@ -70,6 +77,7 @@ export const poems = [
       imagePath: '/path/to/image8',
       audioPath: '/path/to/audio8',
       year: 2024,
+      albumId: 8,
     },
     {
       title: 'Echoes of the Past',
@@ -79,6 +87,7 @@ export const poems = [
       imagePath: '/path/to/image9',
       audioPath: '/path/to/audio9',
       year: 2023,
+      albumId: 9,
     },
     {
       title: 'City Lights',
@@ -88,5 +97,6 @@ export const poems = [
       imagePath: '/path/to/image10',
       audioPath: '/path/to/audio10',
       year: 2025,
+      albumId: 10,
     },
   ];

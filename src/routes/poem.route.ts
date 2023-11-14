@@ -13,5 +13,7 @@ router.get('/album/:albumId', authenticate, poemController.getAlbumPoems)
 router.get('/', authenticate, poemController.getAllPoems)
 router.get('/:id', authenticate, poemController.getPoemById)
 router.post('/', authenticate, validate(addPoemDto), poemController.createPoem)
+router.put('/:id', authenticate, validate(addPoemDto), poemController.updatePoem)
+router.delete('/:id', authenticate, poemController.deletePoem)
 
 export default router
