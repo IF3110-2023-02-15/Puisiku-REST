@@ -49,11 +49,7 @@ class AlbumController {
     try {
       const album = await this.albumService.getAlbum(id)
 
-      if (creatorId === album?.creatorId) {
-        return res.json(album)
-      }
-
-      res.status(401).json({ error: 'Not Authorized' })
+      return res.json(album)
     } catch (error: any) {
       if (error instanceof AlbumNotFoundError) {
         return res.status(404).json({ error: error.message })

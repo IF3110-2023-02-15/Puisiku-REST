@@ -41,6 +41,31 @@ class UserController {
     }
   }
 
+  getCreatorById = async (req: Request, res: Response) => {
+    const id = Number(req.params.creatorId)
+
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'User id not valid' })
+    }
+
+    try {
+      const user = await this.userService.getProfileById(id)
+
+      if (!user) {
+        return res.status(404).json({ message: 'User Not Found' })
+      }
+
+      return res.json(user)
+    } catch (error: any) {
+      if (error instanceof GetSubscriberError) {
+        return res.status(400).json({ error: error.message })
+      }
+      return res
+        .status(500)
+        .json({ message: 'Error retrieving profile' + error.toString() })
+    }
+  }
+
   updateProfile = async (req: Request, res: Response) => {
     const id = Number(req.user && req.user.id)
     const { name, description, imagePath } = req.body

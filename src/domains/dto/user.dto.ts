@@ -7,3 +7,11 @@ export const updateProfileDto = z.object({
     imagePath: z.string().optional(),
   }),
 })
+
+export const getCreatorByIdDto = z.object({
+  params: z.object({
+    creatorId: z.string().refine((creatorId) => !isNaN(Number(creatorId)), {
+      message: 'Creator id is not a number',
+    }),
+  }),
+})
