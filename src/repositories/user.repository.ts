@@ -27,7 +27,11 @@ class UserRepository {
   }
 
   async getAllUsers() {
-    return await PSQL.prisma.user.findMany()
+    return await PSQL.prisma.user.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
   }
 
   async updateUserProfile(

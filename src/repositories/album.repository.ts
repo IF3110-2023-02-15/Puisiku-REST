@@ -24,6 +24,9 @@ class AlbumRepository {
   async getCreatorAlbums(creatorId: number) {
     return await PSQL.prisma.album.findMany({
       where: { creatorId },
+      orderBy: {
+        createdAt: 'desc',
+      },
     })
   }
 

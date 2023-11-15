@@ -21,7 +21,11 @@ class PoemRepository {
   }
 
   async getAllPoems() {
-    return await PSQL.prisma.poem.findMany()
+    return await PSQL.prisma.poem.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
   }
 
   async updatePoem(data: IPoem, id: number) {
@@ -40,12 +44,15 @@ class PoemRepository {
   async getPoemsByAlbum(albumId: number) {
     return await PSQL.prisma.poem.findMany({
       where: { albumId },
+      orderBy: {
+        createdAt: 'desc',
+      },
     })
   }
 
   async getAlbumIdByPoemId(id: number) {
     return await PSQL.prisma.poem.findUnique({
-      where : { id }
+      where: { id },
     })
   }
 }
