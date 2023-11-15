@@ -35,6 +35,8 @@ services:
     depends_on:
       puisiku-rest-db:
         condition: service_healthy
+      puisiku-rest-cache:
+        condition: service_started
     env_file:
       - .env
     environment:
