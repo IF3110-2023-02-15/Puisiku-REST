@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import AlbumService from '../services/album.service'
 import AlbumRepository from '../repositories/album.repository'
 import UserRepository from '../repositories/user.repository'
+import RedisDatabase from '../databases/redis'
 import { AlbumNotFoundError, CreatorNotFoundError } from '../errors/errors'
 import UserService from '../services/user.service'
 
@@ -15,7 +16,8 @@ class AlbumController {
   constructor() {
     this.albumService = new AlbumService(
       new AlbumRepository(),
-      new UserRepository()
+      new UserRepository(),
+      new RedisDatabase()
     )
     this.userService = new UserService(new UserRepository())
   }
