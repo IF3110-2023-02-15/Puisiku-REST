@@ -1,6 +1,12 @@
-## Prerun
+# Puisiku Rest Service
 
-set the env
+The Puisiku Rest Service is a robust backend service that provides RESTful APIs for user management, album creation, poem publishing, and file handling. It is built using Express.js with TypeScript, Prisma ORM, Redis, and PostgreSQL. This service is utilized by both the Puisiku app (PHP) and the Puisiku Premium app (React SPA).
+
+## Getting Started
+
+Follow the steps below to set up and run the Puisiku Rest Service:
+
+1. Copy the contents of the `env.example` file to a new file named `.env`.
 
 ```bash
 DATABASE_URL=postgresql://puisiku-rest:puisiku-rest@localhost:5434/puisiku-rest-db
@@ -25,12 +31,20 @@ API_KEY=restnibos
 SOAP_API_KEY=fromrest
 ```
 
-## How to Run
+2. If the database migration does not exist, perform the migration first:
+```bash
+npx prisma migrate dev --name init
+```
 
-Make sure prisma/migrations available. If no, docker compose up first, then run init migration. after that, docker compose down, and up again.
+3. Build and start the application using Docker:
+```bash
+docker compose up -d --build
+```
 
-Init migration to db first
-`npx prisma migrate dev --name init`
+The service will be available at `localhost:3000`. Please ensure that the SOAP service at `localhost:8888` is also running as this service depends on it.
 
-`docker compose up -d --build`
-Server will be hosted on `localhost:3000`
+## Database Scheme
+
+## API Endpoint
+
+## Task Division
