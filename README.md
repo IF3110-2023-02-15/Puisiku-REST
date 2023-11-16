@@ -29,6 +29,9 @@ PHP_BASE_URL=http://localhost:5001
 API_KEY=restnibos
 
 SOAP_API_KEY=fromrest
+
+REDIS_HOST=puisiku-rest-cache
+REDIS_PORT=6379
 ```
 
 2. If the database migration does not exist, perform the migration first:
