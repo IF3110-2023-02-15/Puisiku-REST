@@ -51,7 +51,6 @@ class PoemController {
   deletePoem = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id)
-      console.log("id yg mo di del", id)
       const poems = await this.poemService.deletePoem(id)
       console.log(poems);
       res.json(poems)
@@ -62,6 +61,7 @@ class PoemController {
 
   getAlbumPoems = async (req: Request, res: Response) => {
     const albumId = Number(req.params.albumId)
+    
     try {
       const poems = await this.poemService.getAlbumPoems(albumId)
       res.json(poems)
