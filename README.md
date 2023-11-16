@@ -36,7 +36,12 @@ SOAP_API_KEY=fromrest
 npx prisma migrate dev --name init
 ```
 
-3. Build and start the application using Docker:
+3. If database is empty, perform seeding:
+```bash
+npx prisma db seed
+```
+
+4. Build and start the application using Docker:
 ```bash
 docker compose up -d --build
 ```
