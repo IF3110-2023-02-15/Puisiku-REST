@@ -10,6 +10,15 @@ Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum 
 Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh.
 `
 
+const genres = [
+  'Romantic',
+  'Patriot',
+  'Eligi',
+  'Education',
+  'Nature',
+  'Teacher',
+]
+
 async function main() {
   for (let i = 0; i < 10; i++) {
     const user = await prisma.user.create({
@@ -41,7 +50,7 @@ async function main() {
           data: {
             title: `Poem ${i + 1}-${j + 1}-${k + 1}`,
             creatorId: user.id,
-            genre: 'Genre',
+            genre: genres[k % 6],
             content: `${i + 1}-${j + 1}-${k + 1}\n${loremIpsum}`,
             imagePath: '/img/default_poem.jpg',
             audioPath: '/audio/default_audio.mp3',
